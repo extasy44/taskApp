@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const mongoose = require("mongoose");
 const config = require("./config");
 
@@ -9,8 +9,19 @@ const taskRouter = require("./routers/task");
 const app = express();
 const port = process.env.PORT || 2000;
 
+const multer = require("multer");
+const upload = multer({
+  dest: "images",
+});
+app.post("/upload", upload.single("upload"), (req, res) => {
+  res.send();
+});
+
 mongoose
-  .connect(config.DB_URI, { useNewUrlParser: true, useCreateIndex: true })
+  .connect(config.DB_URI, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+  })
   .then(() => console.log("Database connected!"))
   .catch((error) => console.log(error));
 
@@ -18,13 +29,6 @@ app.use(express.json());
 app.use(userRouter);
 app.use(taskRouter);
 
-
 app.listen(port, () => {
   console.log("Server is up on port " + port);
 });
-
-
-
-
-
-
