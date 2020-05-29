@@ -9,14 +9,6 @@ const taskRouter = require("./routers/task");
 const app = express();
 const port = process.env.PORT || 2000;
 
-const multer = require("multer");
-const upload = multer({
-  dest: "images",
-});
-app.post("/upload", upload.single("upload"), (req, res) => {
-  res.send();
-});
-
 mongoose
   .connect(config.DB_URI, {
     useNewUrlParser: true,
